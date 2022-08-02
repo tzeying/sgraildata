@@ -3,9 +3,7 @@ const cheerio = require('cheerio');
 
 const data = [];
 
-fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_LRT_stations', {
-  responseType: 'text',
-}).then((res) => {
+const crawl = (res) => {
   const $ = cheerio.load(res.body);
   const $td1s = $('#mf-section-1 .wikitable tr td:first-child');
 
@@ -43,5 +41,12 @@ fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_LRT_stations', {
     }
   });
 
-  writeFile('./data/raw/wikipedia-lrt.json', data);
-});
+  writeFile('./data/downloads/wikipedia-lrt.json', data);
+  return data;
+}
+
+
+module.exports.fetchLRTWiki = async () => {
+  let res = await fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_LRT_stations', { responseType: 'text' });
+  return await crawl(res);
+}
