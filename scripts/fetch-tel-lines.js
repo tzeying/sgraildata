@@ -60,7 +60,7 @@ fetch(`https://www.openstreetmap.org/api/0.6/way/${tel1Way}/full.json`).then(
 
       // const lines = [...line1, ...line2];
       const lines = [...alteredLine1, ...alteredLine2];
-      writeFile('data/raw/tel-line.json', lines);
+      writeFile('data/downloads/tel-line.json', lines);
     });
   },
 );
