@@ -1,8 +1,6 @@
-# Singapore Train Datasets
+# Forked version of [sgraildata](https://github.com/cheeaun/sgraildata)
 
-## Forked version of [sgraildata](https://github.com/cheeaun/sgraildata)
-
-### Generate and download data on demand
+## Generate and download data 
 
 ``` js
 const { download, generate } = require('sgraildata');
