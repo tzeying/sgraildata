@@ -2,10 +2,10 @@ const { fetch, writeFile } = require('../utils');
 const cheerio = require('cheerio');
 
 const data = [];
+path = require('path')
+let basePath = path.join(__dirname, '..', 'data')
 
-fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_MRT_stations', {
-  responseType: 'text',
-}).then((res) => {
+const crawl = res => {
   const $ = cheerio.load(res.body);
   const $td1s = $('#mf-section-2 .wikitable tr td:nth-child(2)');
 
@@ -43,5 +43,11 @@ fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_MRT_stations', {
     })
     .filter(Boolean);
 
-  writeFile('./data/raw/wikipedia-mrt.json', data);
-});
+  writeFile(`${basePath}/downloads/wikipedia-mrt.json`, data);
+  return data;
+}
+
+module.exports.fetchMRTWiki = async () => {
+  let res = await fetch('https://en.m.wikipedia.org/wiki/List_of_Singapore_MRT_stations', { responseType: 'text' });
+  return await crawl(res);
+}

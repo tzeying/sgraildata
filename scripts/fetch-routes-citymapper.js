@@ -1,25 +1,28 @@
 const { fetch, writeFile } = require('../utils');
+path = require('path')
+let basePath = path.join(__dirname, '..', 'data')
 
-fetch('https://citymapper.com/api/2/routeinfo', {
-  searchParams: {
-    route_ids: [
-      'SingaporeMRTCircleLine',
-      'SingaporeMRTDowntownLine',
-      'SingaporeMRTEastwestLine',
-      'SingaporeMRTNortheastLine',
-      'SingaporeMRTNorthsouthLine',
-      'CM_SingaporeMRT_tel',
-      'SingaporeLRTBukitPanjangLine',
-      'SingaporeLRTPunggolLineEastLoop',
-      'SingaporeLRTPunggolLineWestLoop',
-      'SingaporeLRTSengkangLineEastLoop',
-      'SingaporeLRTSengkangLineWestLoop',
-    ].join(','),
-    region_id: 'sg-singapore',
-    weekend: 1,
-    status_format: 'rich',
-  },
-}).then((res) => {
+module.exports.fetchCityMapper = async () => {
+  let res = await fetch('https://citymapper.com/api/2/routeinfo', {
+    searchParams: {
+      route_ids: [
+        'SingaporeMRTCircleLine',
+        'SingaporeMRTDowntownLine',
+        'SingaporeMRTEastwestLine',
+        'SingaporeMRTNortheastLine',
+        'SingaporeMRTNorthsouthLine',
+        'CM_SingaporeMRT_tel',
+        'SingaporeLRTBukitPanjangLine',
+        'SingaporeLRTPunggolLineEastLoop',
+        'SingaporeLRTPunggolLineWestLoop',
+        'SingaporeLRTSengkangLineEastLoop',
+        'SingaporeLRTSengkangLineWestLoop',
+      ].join(','),
+      region_id: 'sg-singapore',
+      weekend: 1,
+      status_format: 'rich',
+    },
+  });
   const { body } = res;
-  writeFile('data/raw/routes.citymapper.json', body);
-});
+  writeFile(`${basePath}/downloads/routes.citymapper.json`, body);
+}

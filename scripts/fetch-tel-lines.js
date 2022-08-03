@@ -3,6 +3,9 @@ const nearestPointOnLine = require('@turf/nearest-point-on-line').default;
 const { lineString, point } = require('@turf/helpers');
 const lineSlice = require('@turf/line-slice');
 
+path = require('path')
+let basePath = path.join(__dirname, '..', 'data')
+
 const extractLine = (body) => {
   let way;
   let nodes = [];
@@ -60,7 +63,7 @@ fetch(`https://www.openstreetmap.org/api/0.6/way/${tel1Way}/full.json`).then(
 
       // const lines = [...line1, ...line2];
       const lines = [...alteredLine1, ...alteredLine2];
-      writeFile('data/raw/tel-line.json', lines);
+      writeFile(`${basePath}/downloads/tel-line.json`, lines);
     });
   },
 );
