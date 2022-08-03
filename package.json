@@ -1,7 +1,7 @@
 {
-  "name": "sgraildata",
+  "name": "singapore-train-data",
   "version": "2.0.1",
-  "description": "Singapore Rail data",
+  "description": "Forked version of sgraildata",
   "keywords": [
     "singapore",
     "rail",
@@ -13,6 +13,7 @@
     "data"
   ],
   "author": "Lim Chee Aun <cheeaun@gmail.com>",
+  "contributors": ["Tzeying <tzeyingcheng@gmail.com>"],
   "license": "ISC",
   "dependencies": {
     "@mapbox/polyline": "~1.1.1",

@@ -1,10 +1,25 @@
-# SG Rail Data
+# Singapore Train Datasets
 
-> Singapore Rail data
+## Forked version of [sgraildata](https://github.com/cheeaun/sgraildata)
 
+### Generate and download data on demand
+
+``` js
+const { download, generate } = require('sgraildata');
+
+// Generate data from static datasets 
+let dataset = generate(); 
+
+// Get latest data by running download
+download(); 
+let freshDataSet = generate(false); 
+
+```
+
+---
 This is a data-only repository to complement [RailRouter SG](https://github.com/cheeaun/railrouter-sg/).
 
-## The data
+### The data
 
 It's in the `/data` folder.
 
@@ -34,7 +49,3 @@ Changelog in [`CHANGELOG.md`](./CHANGELOG.md).
 - A point representation to indicate the location of the MRT station: https://www.mytransport.sg/content/dam/datamall/datasets/Geospatial/TrainStation.zip via https://www.mytransport.sg/content/mytransport/home/dataMall/static-data.html
 - Line for Thomson-East Coast Line from OSM:
   - Run `node scripts/fetch-tel-lines`
-
-## Generate final data
-
-- Run `node scripts/build-geojson`
