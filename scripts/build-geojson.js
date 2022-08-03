@@ -12,23 +12,26 @@ const nearestPoint = require('@turf/nearest-point').default;
 const { rewind, simplify } = require('@turf/turf');
 const namer = require('color-namer');
 const { chaikin } = require('chaikin');
+path = require('path')
 
 module.exports.buildGeoJSON = (withStaticData = true) => {
+
+  let basePath = path.join(__dirname, '..', 'data')
 
   let dataSource = withStaticData ? 'raw' : 'downloads';
 
   //Dynamic datasets 
-  const routesData = readFile(`./data/${dataSource}/routes.citymapper.json`);
-  const wikipediaLRTData = readFile(`./data/${dataSource}/wikipedia-lrt.json`);
-  const wikipediaMRTData = readFile(`./data/${dataSource}/wikipedia-mrt.json`);
+  const routesData = readFile(`${basePath}/${dataSource}/routes.citymapper.json`);
+  const wikipediaLRTData = readFile(`${basePath}/${dataSource}/wikipedia-lrt.json`);
+  const wikipediaMRTData = readFile(`${basePath}/${dataSource}/wikipedia-mrt.json`);
 
   // This is dynamic but I'm too lazy to figure out what it does so we're keeping it static.
-  const telLine = readFile(`./data/raw/tel-line.json`);
+  const telLine = readFile(`${basePath}/raw/tel-line.json`);
 
   //Static datasets 
-  const codesData = readFile('./data/raw/MRTLRTStnPtt.json');
-  const stationData = readFile('./data/raw/master-plan-2019-rail-station-layer-geojson.geojson');
-  const exitsData = readFile('./data/raw/TrainStationExit06032020.json');
+  const codesData = readFile(`${basePath}/raw/MRTLRTStnPtt.json`);
+  const stationData = readFile(`${basePath}/raw/master-plan-2019-rail-station-layer-geojson.geojson`);
+  const exitsData = readFile(`${basePath}/raw/TrainStationExit06032020.json`);
 
   // https://github.com/darkskyapp/string-hash/
   function hash(str) {
@@ -390,8 +393,8 @@ module.exports.buildGeoJSON = (withStaticData = true) => {
     ...buildings,
   ]);
 
-  writeFile('data/generated/sg-rail.geojson', geoJSON);
+  writeFile(`${basePath}/generated/sg-rail.geojson`, geoJSON);
   console.log('Stations count', stationCodes.length);
-  writeFile('data/generated/sg-station-codes.txt', stationCodes.join(' '));
+  writeFile(`${basePath}/generated/sg-station-codes.txt`, stationCodes.join(' '));
   return (geoJSON)
 }

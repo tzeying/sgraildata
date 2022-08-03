@@ -3,6 +3,9 @@ const cheerio = require('cheerio');
 
 const data = [];
 
+path = require('path')
+let basePath = path.join(__dirname, '..', 'data')
+
 const crawl = (res) => {
   const $ = cheerio.load(res.body);
   const $td1s = $('#mf-section-1 .wikitable tr td:first-child');
@@ -41,7 +44,7 @@ const crawl = (res) => {
     }
   });
 
-  writeFile('./data/downloads/wikipedia-lrt.json', data);
+  writeFile(`${basePath}/downloads/wikipedia-lrt.json`, data);
   return data;
 }
 
