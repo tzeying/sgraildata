@@ -2,6 +2,9 @@ const { fetch, writeFile } = require('../utils');
 const cheerio = require('cheerio');
 
 const data = [];
+path = require('path')
+let basePath = path.join(__dirname, '..', 'data')
+
 const crawl = res => {
   const $ = cheerio.load(res.body);
   const $td1s = $('#mf-section-2 .wikitable tr td:nth-child(2)');
@@ -40,7 +43,7 @@ const crawl = res => {
     })
     .filter(Boolean);
 
-  writeFile('./data/downloads/wikipedia-mrt.json', data);
+  writeFile(`${basePath}/downloads/wikipedia-mrt.json`, data);
   return data;
 }
 

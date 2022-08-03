@@ -1,4 +1,6 @@
 const { fetch, writeFile } = require('../utils');
+path = require('path')
+let basePath = path.join(__dirname, '..', 'data')
 
 module.exports.fetchCityMapper = async () => {
   let res = await fetch('https://citymapper.com/api/2/routeinfo', {
@@ -22,5 +24,5 @@ module.exports.fetchCityMapper = async () => {
     },
   });
   const { body } = res;
-  writeFile('data/downloads/routes.citymapper.json', body);
+  writeFile(`${basePath}/downloads/routes.citymapper.json`, body);
 }
